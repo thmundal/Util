@@ -1,6 +1,6 @@
 <?php
 /**
- * Handy utility functions
+ * Handy utility functions.
  * @author Thomas Mundal <thmundal@gmail.com>
  */
 
