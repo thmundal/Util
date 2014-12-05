@@ -146,6 +146,10 @@ function template($filename, $var) {
  */
 function template_css($filename, $var, $css_path) {
     global $css;
+
+    if(!isset($css))
+        throw new Exception("CSS handler is not installed");
+
     $tpl = template($filename, $var);
 
     // Get CSS info
