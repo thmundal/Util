@@ -85,4 +85,72 @@ function call(Callable $callback) {
     return call_user_func($callback);
 }
 
+/**
+ * Encapsulates the given string in quotation marks
+ * @param  string       The string to quote
+ * @param  string       Optional quotation marks
+ * @return string       Returns the quoted string
+ */
+function quote($string, $quote = "'") {
+    assertType($string, "string");
+    return $quote.$string.$quote;
+}
+
+/**
+ * Redirects the request to given url by the given method
+ * @param  string $url      The URL to redirect to
+ * @param  string $method   The method of redirection, can be "header" or "meta"
+ */
+function redirect($url, $method="header") {
+    if($method == "header") {
+        header("location: ".$url);
+    } elseif($method == "meta") {
+        echo '<meta http-equiv="refresh" content="0; url='.$url.'" />';
+    } else {
+        throw new Exception("No valid method provided");
+    }
+}
+
+/* 
+ *
+ * SMARTY UTILS
+ *
+ * /
+
+/**
+ * Creates and returns the contents of a Smarty template
+ * @param  string           Path to the template file
+ * @param  array            Array of variables to include in the template given by key, value pairs
+ * @return SmartyTemplate   Returns the generated Smarty Template
+ */
+function template($filename, $var) {
+    global $smarty;
+
+    if(!isset($smarty))
+        throw new Exception("Smarty is not installed");
+
+    $smarty->muteExpectedErrors();
+    
+    foreach($var as $key => $val)
+        $smarty->assign($key, $val);
+    
+    return $smarty->fetch($filename);
+}
+
+/**
+ * Creates and returns a template, and adds the contents of a css file to the centralized css engine for compiling
+ * @param  string $filename Path of the smarty template file
+ * @param  array  $var      Array of variables to include in the template given by key, value pairs
+ * @param  string $css_path Path to the file containing CSS data
+ * @return void
+ */
+function template_css($filename, $var, $css_path) {
+    global $css;
+    $tpl = template($filename, $var);
+
+    // Get CSS info
+    $css->add($css_path);
+
+    return $tpl;
+}
 ?>
