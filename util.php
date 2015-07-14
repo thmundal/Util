@@ -89,6 +89,7 @@ function call(Callable $callback) {
  * Encapsulates the given string in quotation marks
  * @param  string       The string to quote
  * @param  string       Optional quotation marks
+ * @todo assertType() function is not present in this version of util.php - fix!
  * @return string       Returns the quoted string
  */
 function quote($string, $quote = "'") {
