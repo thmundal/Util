@@ -158,4 +158,8 @@ function template_css($filename, $var, $css_path) {
 
     return $tpl;
 }
+
+function array_is_assoc($arr) {
+    return array_keys($arr) !== range(0, count($arr) - 1);
+}
 ?>
